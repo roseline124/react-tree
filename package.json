@@ -59,5 +59,9 @@
     "tslib": "^2.6.0",
     "tsup": "^8.0.0",
     "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.3.1"
   }
 }
