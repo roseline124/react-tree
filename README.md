@@ -190,7 +190,7 @@ The component follows ARIA best practices:
 
 ## Browser Support
 
-- React 19+
+- React 18+
 - Modern browsers with ES2022 support
 - TypeScript 5.0+
 
