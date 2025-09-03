@@ -7,7 +7,6 @@ export interface TreeItemProps {
   itemType: 'leaf' | 'branch';
   children: React.ReactNode;
   className?: string;
-  branchClassName?: string;
 }
 
 export const TreeItem = ({

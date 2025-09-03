@@ -9,7 +9,6 @@ export interface TreeProps {
   children: React.ReactNode;
   open?: boolean;
   className?: string;
-  subTreeClassName?: string;
 }
 
 // Tree 컴포넌트

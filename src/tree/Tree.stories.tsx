@@ -17,10 +17,6 @@ const meta: Meta<typeof Tree> = {
       control: 'text',
       description: 'Additional CSS classes for the tree container',
     },
-    subTreeClassName: {
-      control: 'text',
-      description: 'Additional CSS classes for nested trees',
-    },
     'aria-label': {
       control: 'text',
       description: 'Accessibility label for the tree',
