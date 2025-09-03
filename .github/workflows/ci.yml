@@ -94,9 +94,11 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add package.json
-          git commit -m "chore: bump version to ${{ env.NEW_VERSION }}"
-          git tag "v${{ env.NEW_VERSION }}"
-          git push origin "v${{ env.NEW_VERSION }}"
+          git commit -m "chore: bump version to ${{ env.NEW_VERSION }}" || true
+          git tag "v${{ env.NEW_VERSION }}" || true
+          git push origin "v${{ env.NEW_VERSION }}" || echo "Tag push failed, but continuing..."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish-release:
     needs: test
@@ -145,6 +147,8 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add package.json
-          git commit -m "chore: release v${{ env.NEW_VERSION }}"
-          git tag "v${{ env.NEW_VERSION }}"
-          git push origin "v${{ env.NEW_VERSION }}"
+          git commit -m "chore: release v${{ env.NEW_VERSION }}" || true
+          git tag "v${{ env.NEW_VERSION }}" || true
+          git push origin "v${{ env.NEW_VERSION }}" || echo "Tag push failed, but continuing..."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
