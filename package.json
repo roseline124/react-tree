@@ -26,8 +26,8 @@
   "sideEffects": false,
   "type": "module",
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   },
   "exports": {
     ".": {
@@ -57,7 +57,10 @@
     "test": "echo \"No tests specified\" && exit 0",
     "prepublishOnly": "npm run clean && npm run build",
     "release": "semantic-release",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "version:alpha": "npm version prerelease --preid=alpha --no-git-tag-version",
+    "version:patch": "npm version patch --no-git-tag-version",
+    "version:minor": "npm version minor --no-git-tag-version"
   },
   "peerDependencies": {
     "react": ">=19.0.0",
@@ -68,8 +71,8 @@
     "@semantic-release/git": "^10.0.0",
     "@storybook/addon-docs": "^9.1.4",
     "@storybook/react-vite": "^9.1.4",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^8.0.0",

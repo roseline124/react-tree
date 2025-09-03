@@ -190,9 +190,31 @@ The component follows ARIA best practices:
 
 ## Browser Support
 
-- React 18+
+- React 19+
 - Modern browsers with ES2022 support
 - TypeScript 5.0+
+
+## Automated Release Process
+
+This project uses automated versioning and publishing:
+
+### Alpha Releases (develop branch)
+
+- Push to `develop` branch → automatically publishes alpha version
+- Version format: `0.0.1-alpha.20250903123456` (with timestamp)
+- Install with: `npm install @roseline124/react-tree@alpha`
+
+### Stable Releases (main branch)
+
+- Push to `main` branch → automatically publishes patch version
+- Version format: `0.0.1`, `0.0.2`, `0.0.3`, etc.
+- Install with: `npm install @roseline124/react-tree`
+
+### Workflow
+
+1. **Feature Development**: Work on feature branches
+2. **Alpha Testing**: Merge to `develop` → alpha version published
+3. **Stable Release**: Merge to `main` → patch version published
 
 ## Contributing
 
