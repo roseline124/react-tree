@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tree, TreeItem, TreeItemLayout } from './index';
 
 const meta: Meta<typeof Tree> = {
@@ -33,85 +33,40 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    'aria-label': 'File Explorer',
+    'aria-label': 'Default',
     children: (
-      <>
-        <TreeItem>
-          <TreeItemLayout>Documents</TreeItemLayout>
-          <Tree>
-            <TreeItem>
-              <TreeItemLayout>Work</TreeItemLayout>
-              <Tree>
-                <TreeItem>
-                  <TreeItemLayout>Project A</TreeItemLayout>
-                </TreeItem>
-                <TreeItem>
-                  <TreeItemLayout>Project B</TreeItemLayout>
-                </TreeItem>
-              </Tree>
+      <Tree aria-label="Default" open>
+        <TreeItem itemType="leaf">
+          <TreeItemLayout>customer id: 1234567890</TreeItemLayout>
+        </TreeItem>
+        <TreeItem itemType="branch">
+          <TreeItemLayout>customer information</TreeItemLayout>
+          <Tree className="ml-4">
+            <TreeItem itemType="leaf">
+              <TreeItemLayout>name: roseline</TreeItemLayout>
             </TreeItem>
-            <TreeItem>
-              <TreeItemLayout>Personal</TreeItemLayout>
+            <TreeItem itemType="leaf">
+              <TreeItemLayout>birthday: 1980.01.01</TreeItemLayout>
+            </TreeItem>
+            <TreeItem itemType="leaf">
+              <TreeItemLayout>gender: female</TreeItemLayout>
             </TreeItem>
           </Tree>
         </TreeItem>
-        <TreeItem>
-          <TreeItemLayout>Downloads</TreeItemLayout>
-        </TreeItem>
-      </>
-    ),
-  },
-};
-
-export const CustomStyling: Story = {
-  args: {
-    'aria-label': 'Styled Tree',
-    className: 'p-4 bg-gray-50 rounded-lg border',
-    subTreeClassName: 'ml-6 border-l-2 border-blue-200 pl-4',
-    children: (
-      <>
-        <TreeItem>
-          <TreeItemLayout className="hover:bg-blue-100 p-2 rounded transition-colors">
-            Documents
-          </TreeItemLayout>
+        <TreeItem itemType="branch">
+          <TreeItemLayout>address</TreeItemLayout>
           <Tree>
-            <TreeItem>
-              <TreeItemLayout className="hover:bg-green-100 p-2 rounded transition-colors">
-                Work
-              </TreeItemLayout>
+            <TreeItem itemType="branch">
+              <TreeItemLayout>default address: seoul</TreeItemLayout>
               <Tree>
-                <TreeItem>
-                  <TreeItemLayout className="hover:bg-yellow-100 p-2 rounded transition-colors">
-                    Project A
-                  </TreeItemLayout>
-                </TreeItem>
-                <TreeItem>
-                  <TreeItemLayout className="hover:bg-yellow-100 p-2 rounded transition-colors">
-                    Project B
-                  </TreeItemLayout>
+                <TreeItem itemType="leaf">
+                  <TreeItemLayout>detail address: 101-101</TreeItemLayout>
                 </TreeItem>
               </Tree>
             </TreeItem>
           </Tree>
         </TreeItem>
-      </>
-    ),
-  },
-};
-
-export const CollapsedTree: Story = {
-  args: {
-    open: false,
-    'aria-label': 'Collapsed Tree',
-    children: (
-      <TreeItem>
-        <TreeItemLayout>This tree is collapsed</TreeItemLayout>
-        <Tree>
-          <TreeItem>
-            <TreeItemLayout>Hidden content</TreeItemLayout>
-          </TreeItem>
-        </Tree>
-      </TreeItem>
+      </Tree>
     ),
   },
 };

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { RootTreeContext } from './RootTreeContext';
 import { SubTreeContext } from './SubTreeContext';
-import { cn } from '../utils/styles';
 
 // Tree 컴포넌트의 Props 타입
 export interface TreeProps {
@@ -24,7 +23,7 @@ const RootTree = ({ children, open, className = '', ...props }: TreeProps) => {
   return (
     <RootTreeContext.Provider value={{ open }}>
       <SubTreeContext.Provider value={null}>
-        <div role="tree" className={cn('block', className)} {...props}>
+        <div role="tree" className={className} {...props}>
           {children}
         </div>
       </SubTreeContext.Provider>
@@ -32,19 +31,10 @@ const RootTree = ({ children, open, className = '', ...props }: TreeProps) => {
   );
 };
 
-const SubTree = ({
-  children,
-  className = '',
-  subTreeClassName = '',
-  ...props
-}: TreeProps) => {
+const SubTree = ({ children, className = '', ...props }: TreeProps) => {
   return (
     <SubTreeContext.Provider value={null}>
-      <div
-        role="tree"
-        className={cn('block', className, subTreeClassName)}
-        {...props}
-      >
+      <div role="tree" className={className} {...props}>
         {children}
       </div>
     </SubTreeContext.Provider>

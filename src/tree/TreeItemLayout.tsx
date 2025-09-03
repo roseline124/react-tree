@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTreeItemContext } from './TreeItemContext';
-import { cn } from '../utils/styles';
+import './TreeItemLayout.css';
 
 export interface TreeItemLayoutProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -19,18 +19,18 @@ export const TreeItemLayout = ({
 
   return (
     <div
-      className={cn(
-        'flex items-center transition-colors duration-150 gap-1',
-        itemType === 'branch' ? 'cursor-pointer' : 'cursor-default',
-        className
-      )}
+      className={`tree-item-layout ${
+        itemType === 'branch'
+          ? 'tree-item-layout-branch'
+          : 'tree-item-layout-leaf'
+      } ${className}`}
       onClick={itemType === 'branch' ? onToggle : undefined}
       {...props}
     >
       {itemType === 'branch' && (
         <span
-          className={`inline-block transition-transform duration-200 ${
-            isOpen ? 'rotate-90' : 'rotate-0'
+          className={`drop-down-icon ${
+            isOpen ? 'drop-down-icon-open' : 'drop-down-icon-closed'
           }`}
         >
           {dropDownIcon}

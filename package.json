@@ -2,7 +2,7 @@
   "name": "@roseline124/react-tree",
   "version": "0.0.1-alpha.0",
   "private": false,
-  "description": "A customizable, accessible React Tree component built with TypeScript and Tailwind CSS",
+  "description": "A customizable, accessible React Tree component built with TypeScript",
   "author": "roseline124 <guseod24@gmail.com>",
   "license": "MIT",
   "keywords": [
@@ -10,7 +10,6 @@
     "tree",
     "component",
     "typescript",
-    "tailwindcss",
     "accessible",
     "ui",
     "nested",
@@ -86,9 +85,5 @@
     "tslib": "^2.6.0",
     "tsup": "^8.0.0",
     "typescript": "^5.4.0"
-  },
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^3.3.1"
   }
 }

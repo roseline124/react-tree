@@ -1,12 +1,12 @@
 # React Tree Component
 
-A customizable, accessible React Tree component built with TypeScript and Tailwind CSS. This component provides a flexible tree structure that can be easily integrated into any React application.
+A customizable, accessible React Tree component built with TypeScript. This component provides a flexible tree structure that can be easily integrated into any React application.
 
 ## Features
 
 - 🌳 **Flexible Tree Structure**: Support for nested tree items with unlimited depth
 - ♿ **Accessibility**: Built with ARIA attributes and keyboard navigation support
-- 🎨 **Customizable**: Easy to style and customize with Tailwind CSS classes
+- 🎨 **Customizable**: Easy to style and customize
 - 📱 **Responsive**: Works seamlessly across different screen sizes
 - 🔧 **TypeScript**: Full TypeScript support with comprehensive type definitions
 - ⚡ **Lightweight**: Minimal dependencies and optimized bundle size
@@ -97,6 +97,8 @@ function App() {
 
 ### Custom Styling
 
+For example, you can do like this using tailwindCss
+
 ```tsx
 import { Tree, TreeItem, TreeItemLayout } from '@roseline124/react-tree';
 
@@ -161,11 +163,8 @@ A convenience component for rendering trees from JSON data.
 
 ## Styling
 
-The component uses Tailwind CSS for styling. You can customize the appearance by:
-
 1. Passing custom classes via the `className` prop
 2. Overriding default styles with your own CSS
-3. Using the `subTreeClassName` prop for nested tree styling
 
 ## Accessibility
 
@@ -189,13 +188,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Changelog
-
-### 0.0.1-alpha.0
-
-- Initial release
-- Basic tree structure components
-- JSON data support
-- Tailwind CSS integration
-- TypeScript support

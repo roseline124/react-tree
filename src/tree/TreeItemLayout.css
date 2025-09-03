@@ -1,0 +1,26 @@
+.tree-item-layout {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tree-item-layout-branch {
+  cursor: pointer;
+}
+
+.tree-item-layout-leaf {
+  cursor: default;
+}
+
+.drop-down-icon {
+  display: inline-block;
+  transition: transform 0.2s ease-in-out;
+}
+
+.drop-down-icon-open {
+  transform: rotate(90deg);
+}
+
+.drop-down-icon-closed {
+  transform: rotate(0deg);
+}
