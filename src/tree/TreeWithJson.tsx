@@ -1,15 +1,16 @@
-import { Tree, TreeProps } from "./Tree";
-import { TreeItem, TreeItemProps } from "./TreeItem";
-import { TreeItemLayout, TreeItemLayoutProps } from "./TreeItemLayout";
+import * as React from 'react';
+import { Tree, TreeProps } from './Tree';
+import { TreeItem, TreeItemProps } from './TreeItem';
+import { TreeItemLayout, TreeItemLayoutProps } from './TreeItemLayout';
 
 export type TreeData = Record<string, any | Record<string, any>>;
 
-export interface TreeWithJson extends RenderTreeProps {}
+export interface TreeWithJsonProps extends RenderTreeProps {}
 
 export const TreeWithJson = ({
   treeProps,
   ...renderTreeProps
-}: TreeWithJson) => {
+}: TreeWithJsonProps) => {
   return (
     <Tree {...treeProps}>{renderTree({ treeProps, ...renderTreeProps })}</Tree>
   );
@@ -19,14 +20,14 @@ interface getTreeItemLayoutPropsParams {
   level: number;
   key: string;
   value: TreeData;
-  itemType: "leaf" | "branch";
+  itemType: 'leaf' | 'branch';
 }
 
 interface RenderTreeItemProps {
   level: number;
   key: string;
   value: TreeData;
-  itemType: "leaf" | "branch";
+  itemType: 'leaf' | 'branch';
   keyPath: string[];
 }
 
@@ -35,9 +36,9 @@ export interface RenderTreeProps {
   renderTreeItem: (params: RenderTreeItemProps) => React.ReactNode;
   getTreeItemLayoutProps?: (
     params: getTreeItemLayoutPropsParams
-  ) => Omit<TreeItemLayoutProps, "children">;
-  treeItemProps?: Omit<TreeItemProps, "children" | "itemType">;
-  treeProps?: Omit<TreeProps, "children">;
+  ) => Omit<TreeItemLayoutProps, 'children'>;
+  treeItemProps?: Omit<TreeItemProps, 'children' | 'itemType'>;
+  treeProps?: Omit<TreeProps, 'children'>;
   checkIsLeaf?: (value: TreeData) => boolean;
 }
 
@@ -55,7 +56,7 @@ const renderTree = (
     checkIsLeaf,
   } = props;
   return Object.entries(data).map(([key, value]) => {
-    const isLeaf = checkIsLeaf ? checkIsLeaf(value) : typeof value !== "object";
+    const isLeaf = checkIsLeaf ? checkIsLeaf(value) : typeof value !== 'object';
 
     const id = JSON.stringify(value).slice(1, -1);
 
@@ -64,7 +65,7 @@ const renderTree = (
         level,
         key,
         value,
-        itemType: isLeaf ? "leaf" : "branch",
+        itemType: isLeaf ? 'leaf' : 'branch',
       }) ?? {};
     if (isLeaf) {
       return (
@@ -74,7 +75,7 @@ const renderTree = (
               level,
               key,
               value,
-              itemType: "leaf",
+              itemType: 'leaf',
               keyPath: [...keyPath, key],
             })}
           </TreeItemLayout>
@@ -89,7 +90,7 @@ const renderTree = (
             level,
             key,
             value,
-            itemType: "branch",
+            itemType: 'branch',
             keyPath: [...keyPath, key],
           })}
         </TreeItemLayout>

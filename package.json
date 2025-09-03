@@ -2,9 +2,20 @@
   "name": "@roseline124/react-tree",
   "version": "0.0.1-alpha.0",
   "private": false,
-  "description": "Customizable React Tree component",
+  "description": "A customizable, accessible React Tree component built with TypeScript and Tailwind CSS",
   "author": "roseline124 <guseod24@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "react",
+    "tree",
+    "component",
+    "typescript",
+    "tailwindcss",
+    "accessible",
+    "ui",
+    "nested",
+    "hierarchy"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/roseline124/react-tree.git"
@@ -15,6 +26,10 @@
   "homepage": "https://github.com/roseline124/react-tree#readme",
   "sideEffects": false,
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -30,32 +45,45 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --minify",
+    "build": "tsup",
     "clean": "rimraf dist",
     "dev": "tsup --watch",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
-    "release": "semantic-release"
+    "test": "echo \"No tests specified\" && exit 0",
+    "prepublishOnly": "npm run clean && npm run build",
+    "release": "semantic-release",
+    "build-storybook": "storybook build"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/git": "^10.0.0",
     "@storybook/addon-essentials": "^8.1.0",
     "@storybook/addon-interactions": "^8.1.0",
     "@storybook/react": "^8.1.0",
     "@storybook/test": "^8.1.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "eslint": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^8.0.0",
     "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "prettier": "^3.3.0",
     "rimraf": "^6.0.0",
     "semantic-release": "^24.0.0",
+    "storybook": "^8.1.0",
     "tslib": "^2.6.0",
     "tsup": "^8.0.0",
     "typescript": "^5.4.0"

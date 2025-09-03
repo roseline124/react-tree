@@ -4,14 +4,14 @@ import { useRootTreeContext } from './RootTreeContext';
 import { cn } from '../utils/styles';
 
 export interface TreeItemProps {
-  itemType: 'leaf' | 'branch';
+  itemType?: 'leaf' | 'branch';
   children: React.ReactNode;
   className?: string;
   branchClassName?: string;
 }
 
 export const TreeItem = ({
-  itemType,
+  itemType = 'leaf',
   children,
   className = '',
   branchClassName = '',
@@ -21,7 +21,7 @@ export const TreeItem = ({
 
   const handleToggle = React.useCallback(() => {
     if (itemType === 'branch') {
-      setIsOpen((prev) => !prev);
+      setIsOpen(prev => !prev);
     }
   }, [itemType]);
 
@@ -31,7 +31,7 @@ export const TreeItem = ({
       isOpen,
       onToggle: handleToggle,
     }),
-    [itemType, isOpen, handleToggle],
+    [itemType, isOpen, handleToggle]
   );
 
   return (

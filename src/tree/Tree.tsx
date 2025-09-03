@@ -20,13 +20,7 @@ export const Tree = (props: TreeProps) => {
   return isRoot ? <RootTree {...props} /> : <SubTree {...props} />;
 };
 
-const RootTree = ({
-  children,
-  open,
-  className = '',
-  subTreeClassName = '',
-  ...props
-}: TreeProps) => {
+const RootTree = ({ children, open, className = '', ...props }: TreeProps) => {
   return (
     <RootTreeContext.Provider value={{ open }}>
       <SubTreeContext.Provider value={null}>
@@ -40,7 +34,6 @@ const RootTree = ({
 
 const SubTree = ({
   children,
-  open,
   className = '',
   subTreeClassName = '',
   ...props

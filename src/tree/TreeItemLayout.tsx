@@ -22,7 +22,7 @@ export const TreeItemLayout = ({
       className={cn(
         'flex items-center transition-colors duration-150 gap-1',
         itemType === 'branch' ? 'cursor-pointer' : 'cursor-default',
-        className,
+        className
       )}
       onClick={itemType === 'branch' ? onToggle : undefined}
       {...props}
