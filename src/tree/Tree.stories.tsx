@@ -28,9 +28,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    'aria-label': 'Default',
-    children: (
+  render: () => {
+    return (
       <Tree aria-label="Default" open dropDownIcon=">">
         <TreeItem itemType="leaf">
           <TreeItemLayout>customer id: 1234567890</TreeItemLayout>
@@ -63,6 +62,6 @@ export const Default: Story = {
           </Tree>
         </TreeItem>
       </Tree>
-    ),
+    );
   },
 };

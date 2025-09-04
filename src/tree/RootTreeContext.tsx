@@ -2,11 +2,13 @@ import * as React from 'react';
 
 export interface RootTreeContextValue {
   open?: boolean;
+  dropDownIcon?: React.ReactNode;
 }
 
 export const RootTreeContext = React.createContext<RootTreeContextValue | null>(
   {
     open: false,
+    dropDownIcon: '▶',
   }
 );
 

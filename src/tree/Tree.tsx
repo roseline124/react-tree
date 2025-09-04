@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { RootTreeContext } from './RootTreeContext';
 import { SubTreeContext } from './SubTreeContext';
+import { TreeLevelContext } from './TreeLevelContext';
 
 // Tree 컴포넌트의 Props 타입
 export interface TreeProps {
@@ -27,27 +28,28 @@ const RootTree = ({
   ...props
 }: TreeProps) => {
   return (
-    <RootTreeContext.Provider value={{ open }}>
-      <SubTreeContext.Provider value={{ dropDownIcon }}>
-        <div role="tree" className={className} {...props}>
-          {children}
-        </div>
+    <RootTreeContext.Provider value={{ open, dropDownIcon }}>
+      <SubTreeContext.Provider value={null}>
+        <TreeLevelContext.Provider value={{ level: 0 }}>
+          <div role="tree" className={className} {...props}>
+            {children}
+          </div>
+        </TreeLevelContext.Provider>
       </SubTreeContext.Provider>
     </RootTreeContext.Provider>
   );
 };
 
-const SubTree = ({
-  children,
-  className = '',
-  dropDownIcon,
-  ...props
-}: TreeProps) => {
+const SubTree = ({ children, className = '', ...props }: TreeProps) => {
+  const { level } = React.useContext(TreeLevelContext);
+
   return (
-    <SubTreeContext.Provider value={{ dropDownIcon }}>
-      <div role="tree" className={className} {...props}>
-        {children}
-      </div>
+    <SubTreeContext.Provider value={null}>
+      <TreeLevelContext.Provider value={{ level: level + 1 }}>
+        <div role="tree" className={className} {...props}>
+          {children}
+        </div>
+      </TreeLevelContext.Provider>
     </SubTreeContext.Provider>
   );
 };

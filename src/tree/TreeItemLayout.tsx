@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTreeItemContext } from './TreeItemContext';
 import './TreeItemLayout.css';
-import { useSubTreeContext } from './SubTreeContext';
+import { useRootTreeContext } from './RootTreeContext';
 
 export interface TreeItemLayoutProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -14,8 +14,8 @@ export const TreeItemLayout = ({
   className = '',
   ...props
 }: TreeItemLayoutProps) => {
-  const { dropDownIcon } = useSubTreeContext();
-  const { itemType, isOpen, onToggle } = useTreeItemContext();
+  const { itemType, isOpen, onToggle, level } = useTreeItemContext();
+  const { dropDownIcon } = useRootTreeContext();
 
   return (
     <div
@@ -25,6 +25,8 @@ export const TreeItemLayout = ({
           : 'tree-item-layout-leaf'
       } ${className}`}
       onClick={itemType === 'branch' ? onToggle : undefined}
+      data-level={level}
+      style={{ paddingLeft: `${level * 1.5}rem` }}
       {...props}
     >
       {itemType === 'branch' && (

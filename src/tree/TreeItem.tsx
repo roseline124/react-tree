@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { TreeItemContext } from './TreeItemContext';
 import { useRootTreeContext } from './RootTreeContext';
 import './TreeItem.css';
+import { TreeItemContext } from './TreeItemContext';
+import { useTreeLevelContext } from './TreeLevelContext';
 
 export interface TreeItemProps {
   itemType: 'leaf' | 'branch';
@@ -15,6 +16,7 @@ export const TreeItem = ({
   className = '',
 }: TreeItemProps) => {
   const { open: defaultOpen } = useRootTreeContext();
+  const { level } = useTreeLevelContext();
   const [isOpen, setIsOpen] = React.useState(defaultOpen ?? false);
 
   const handleToggle = React.useCallback(() => {
@@ -28,8 +30,9 @@ export const TreeItem = ({
       itemType,
       isOpen,
       onToggle: handleToggle,
+      level,
     }),
-    [itemType, isOpen, handleToggle]
+    [itemType, isOpen, handleToggle, level]
   );
 
   return (
@@ -37,20 +40,19 @@ export const TreeItem = ({
       <div
         role="treeitem"
         aria-expanded={itemType === 'branch' ? isOpen : undefined}
-        className={className}
+        className={`tree-item ${className}`}
       >
-        {React.Children.map(children, (child, level) => {
-          if (level === 0) {
+        {React.Children.map(children, (child, childIndex) => {
+          if (childIndex === 0) {
             // 첫 번째 자식은 TreeItemLayout (노드 자체)
             return child;
-          } else if (level === 1 && itemType === 'branch') {
+          } else if (childIndex === 1 && itemType === 'branch') {
             // 두 번째 자식은 중첩된 Tree (자식들)
             return (
               <div
                 className="tree-item-subtree"
                 style={{
                   maxHeight: isOpen ? '2000px' : '0px',
-                  marginLeft: `${level * 1.5}rem`,
                 }}
               >
                 {child}
