@@ -4,6 +4,7 @@ export interface TreeItemContextValue {
   itemType: 'leaf' | 'branch';
   isOpen: boolean;
   onToggle: () => void;
+  level: number;
 }
 
 export const TreeItemContext = React.createContext<TreeItemContextValue | null>(

@@ -14,7 +14,7 @@ export const TreeItemLayout = ({
   className = '',
   ...props
 }: TreeItemLayoutProps) => {
-  const { itemType, isOpen, onToggle } = useTreeItemContext();
+  const { itemType, isOpen, onToggle, level } = useTreeItemContext();
   const { dropDownIcon } = useRootTreeContext();
 
   return (
@@ -25,6 +25,8 @@ export const TreeItemLayout = ({
           : 'tree-item-layout-leaf'
       } ${className}`}
       onClick={itemType === 'branch' ? onToggle : undefined}
+      data-level={level}
+      style={{ paddingLeft: `${level * 1.5}rem` }}
       {...props}
     >
       {itemType === 'branch' && (
