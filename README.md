@@ -2,6 +2,11 @@
 
 A customizable, accessible React Tree component built with TypeScript. This component provides a flexible tree structure that can be easily integrated into any React application.
 
+## Demo
+
+- [Basic Tree](https://codesandbox.io/p/sandbox/sqrr9q)
+- [Tree With Json](https://codesandbox.io/p/sandbox/sgt5nq)
+
 ## Features
 
 - 🌳 **Flexible Tree Structure**: Support for nested tree items with unlimited depth
