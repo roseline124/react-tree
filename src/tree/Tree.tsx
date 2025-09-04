@@ -27,8 +27,8 @@ const RootTree = ({
   ...props
 }: TreeProps) => {
   return (
-    <RootTreeContext.Provider value={{ open }}>
-      <SubTreeContext.Provider value={{ dropDownIcon }}>
+    <RootTreeContext.Provider value={{ open, dropDownIcon }}>
+      <SubTreeContext.Provider value={null}>
         <div role="tree" className={className} {...props}>
           {children}
         </div>
@@ -37,14 +37,9 @@ const RootTree = ({
   );
 };
 
-const SubTree = ({
-  children,
-  className = '',
-  dropDownIcon,
-  ...props
-}: TreeProps) => {
+const SubTree = ({ children, className = '', ...props }: TreeProps) => {
   return (
-    <SubTreeContext.Provider value={{ dropDownIcon }}>
+    <SubTreeContext.Provider value={null}>
       <div role="tree" className={className} {...props}>
         {children}
       </div>

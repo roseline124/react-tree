@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { TreeItemContext } from './TreeItemContext';
 import { useRootTreeContext } from './RootTreeContext';
 import './TreeItem.css';
+import { TreeItemContext } from './TreeItemContext';
 
 export interface TreeItemProps {
   itemType: 'leaf' | 'branch';
@@ -37,7 +37,7 @@ export const TreeItem = ({
       <div
         role="treeitem"
         aria-expanded={itemType === 'branch' ? isOpen : undefined}
-        className={className}
+        className={`tree-item ${className}`}
       >
         {React.Children.map(children, (child, level) => {
           if (level === 0) {
