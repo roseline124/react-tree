@@ -1,0 +1,154 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm type-check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Format check
+        run: pnpm format:check
+
+      - name: Build
+        run: pnpm build
+
+      - name: Build Storybook
+        run: pnpm build:storybook
+
+  publish-alpha:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Generate alpha version
+        run: |
+          TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          BASE_VERSION=$(echo $CURRENT_VERSION | sed 's/-alpha.*//')
+          NEW_VERSION="${BASE_VERSION}-alpha.${TIMESTAMP}"
+          npm version $NEW_VERSION --no-git-tag-version
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      - name: Publish alpha to npm
+        run: pnpm publish --tag alpha --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create Git Tag
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add package.json
+          git commit -m "chore: bump version to ${{ env.NEW_VERSION }}" || true
+          git tag "v${{ env.NEW_VERSION }}" || true
+          git push origin "v${{ env.NEW_VERSION }}" || echo "Tag push failed, but continuing..."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-release:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Bump patch version
+        run: |
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          BASE_VERSION=$(echo $CURRENT_VERSION | sed 's/-alpha.*//')
+          NEW_VERSION=$(npm version patch --no-git-tag-version)
+          NEW_VERSION=${NEW_VERSION#v}
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      - name: Publish to npm
+        run: pnpm publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create Git Tag
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add package.json
+          git commit -m "chore: release v${{ env.NEW_VERSION }}" || true
+          git tag "v${{ env.NEW_VERSION }}" || true
+          git push origin "v${{ env.NEW_VERSION }}" || echo "Tag push failed, but continuing..."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
