@@ -128,6 +128,7 @@ The main container component that provides the tree context.
 | `className`       | `string`          | `''`    | Additional CSS classes for the tree container      |
 | `aria-label`      | `string`          | -       | Accessibility label for the tree                   |
 | `aria-labelledby` | `string`          | -       | Reference to an element that labels the tree       |
+| `dropDownIcon`    | `React.ReactNode` | `'▶'`  | Icon for expand/collapse in branch nodes           |
 
 ### TreeItem
 
@@ -143,11 +144,10 @@ Represents a single item in the tree.
 
 Provides the visual layout for a tree item.
 
-| Prop           | Type              | Default | Description                                      |
-| -------------- | ----------------- | ------- | ------------------------------------------------ |
-| `children`     | `React.ReactNode` | -       | **Required** Content to render inside the layout |
-| `className`    | `string`          | `''`    | Additional CSS classes for the layout            |
-| `dropDownIcon` | `React.ReactNode` | `'▶'`  | Icon for expand/collapse in branch nodes         |
+| Prop        | Type              | Default | Description                                      |
+| ----------- | ----------------- | ------- | ------------------------------------------------ |
+| `children`  | `React.ReactNode` | -       | **Required** Content to render inside the layout |
+| `className` | `string`          | `''`    | Additional CSS classes for the layout            |
 
 ### TreeWithJson
 

@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { useTreeItemContext } from './TreeItemContext';
 import './TreeItemLayout.css';
+import { useSubTreeContext } from './SubTreeContext';
 
 export interface TreeItemLayoutProps
   extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
-  dropDownIcon?: React.ReactNode;
 }
 
 export const TreeItemLayout = ({
   children,
   className = '',
-  dropDownIcon = '▶',
   ...props
 }: TreeItemLayoutProps) => {
+  const { dropDownIcon } = useSubTreeContext();
   const { itemType, isOpen, onToggle } = useTreeItemContext();
 
   return (
