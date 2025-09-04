@@ -8,6 +8,7 @@ export interface TreeProps {
   'aria-labelledby'?: string;
   children: React.ReactNode;
   open?: boolean;
+  dropDownIcon?: React.ReactNode;
   className?: string;
 }
 
@@ -18,10 +19,16 @@ export const Tree = (props: TreeProps) => {
   return isRoot ? <RootTree {...props} /> : <SubTree {...props} />;
 };
 
-const RootTree = ({ children, open, className = '', ...props }: TreeProps) => {
+const RootTree = ({
+  children,
+  open,
+  dropDownIcon = '▶',
+  className = '',
+  ...props
+}: TreeProps) => {
   return (
     <RootTreeContext.Provider value={{ open }}>
-      <SubTreeContext.Provider value={null}>
+      <SubTreeContext.Provider value={{ dropDownIcon }}>
         <div role="tree" className={className} {...props}>
           {children}
         </div>
@@ -30,9 +37,14 @@ const RootTree = ({ children, open, className = '', ...props }: TreeProps) => {
   );
 };
 
-const SubTree = ({ children, className = '', ...props }: TreeProps) => {
+const SubTree = ({
+  children,
+  className = '',
+  dropDownIcon,
+  ...props
+}: TreeProps) => {
   return (
-    <SubTreeContext.Provider value={null}>
+    <SubTreeContext.Provider value={{ dropDownIcon }}>
       <div role="tree" className={className} {...props}>
         {children}
       </div>

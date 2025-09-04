@@ -5,7 +5,9 @@ export interface RootTreeContextValue {
 }
 
 export const RootTreeContext = React.createContext<RootTreeContextValue | null>(
-  null
+  {
+    open: false,
+  }
 );
 
 export const useRootTreeContext = () => {

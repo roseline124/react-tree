@@ -31,7 +31,7 @@ export const Default: Story = {
   args: {
     'aria-label': 'Default',
     children: (
-      <Tree aria-label="Default" open>
+      <Tree aria-label="Default" open dropDownIcon=">">
         <TreeItem itemType="leaf">
           <TreeItemLayout>customer id: 1234567890</TreeItemLayout>
         </TreeItem>
