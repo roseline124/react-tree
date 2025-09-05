@@ -35,23 +35,21 @@ import { Tree, TreeItem, TreeItemLayout } from '@roseline124/react-tree';
 
 function App() {
   return (
-    <Tree aria-label="File Explorer">
-      <TreeItem>
-        <TreeItemLayout>Documents</TreeItemLayout>
-        <Tree>
-          <TreeItem>
-            <TreeItemLayout>Work</TreeItemLayout>
-            <Tree>
-              <TreeItem>
-                <TreeItemLayout>Project A</TreeItemLayout>
-              </TreeItem>
-              <TreeItem>
-                <TreeItemLayout>Project B</TreeItemLayout>
-              </TreeItem>
-            </Tree>
+    <Tree aria-label="Default" open dropDownIcon=">">
+      <TreeItem itemType="leaf">
+        <TreeItemLayout>customer id: 1234567890</TreeItemLayout>
+      </TreeItem>
+      <TreeItem itemType="branch">
+        <TreeItemLayout>customer information</TreeItemLayout>
+        <Tree className="ml-4">
+          <TreeItem itemType="leaf">
+            <TreeItemLayout>name: roseline</TreeItemLayout>
           </TreeItem>
-          <TreeItem>
-            <TreeItemLayout>Personal</TreeItemLayout>
+          <TreeItem itemType="leaf">
+            <TreeItemLayout>birthday: 1980.01.01</TreeItemLayout>
+          </TreeItem>
+          <TreeItem itemType="leaf">
+            <TreeItemLayout>gender: female</TreeItemLayout>
           </TreeItem>
         </Tree>
       </TreeItem>
@@ -63,36 +61,42 @@ function App() {
 ### Tree with JSON Data
 
 ```tsx
-import { TreeWithJson } from '@roseline124/react-tree';
+import { TreeData, TreeWithJson } from '@roseline124/react-tree';
 
-const treeData = [
-  {
-    id: '1',
-    label: 'Documents',
-    children: [
-      {
-        id: '2',
-        label: 'Work',
-        children: [
-          { id: '3', label: 'Project A' },
-          { id: '4', label: 'Project B' },
-        ],
-      },
-      {
-        id: '5',
-        label: 'Personal',
-      },
-    ],
+const sampleData = {
+  'root leaf': {
+    root: 'leaf',
   },
-];
+  customer: {
+    'customer information': {
+      name: 'roseline',
+      birthday: '1980.01.01',
+      gender: 'female',
+    },
+    address: {
+      defaultAddress: {
+        city: 'seoul',
+        avenue: 'gangnam',
+      },
+      detailAddress: '101-101',
+    },
+  },
+} satisfies TreeData;
 
 function App() {
   return (
     <TreeWithJson
-      data={treeData}
-      renderItem={({ item, level }) => (
-        <div className="p-2">
-          {item.label} (Level: {level})
+      treeProps={{ open: true, dropDownIcon: <DropdownIcon /> }}
+      data={sampleData}
+      renderTreeItem={({
+        level: _level,
+        key,
+        value,
+        itemType,
+        keyPath: _keyPath,
+      }) => (
+        <div>
+          [{itemType}] {key} {typeof value === 'string' ? `: ${value}` : ''}
         </div>
       )}
     />
@@ -110,7 +114,7 @@ import { Tree, TreeItem, TreeItemLayout } from '@roseline124/react-tree';
 function App() {
   return (
     <Tree className="p-4 bg-gray-50 rounded-lg">
-      <TreeItem>
+      <TreeItem itemType="leaf">
         <TreeItemLayout className="hover:bg-blue-100 p-2 rounded">
           Custom Styled Item
         </TreeItemLayout>
