@@ -1,6 +1,6 @@
 {
   "name": "@roseline124/react-tree",
-  "version": "0.0.4-alpha.0",
+  "version": "0.0.5-alpha.0",
   "private": false,
   "description": "A customizable, accessible React Tree component built with TypeScript",
   "author": "roseline124 <guseod24@gmail.com>",
